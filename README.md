@@ -27,6 +27,9 @@ This repository contains the **Hoo Brand System 2026** design review — an HTML
 | `assets/hoocowork.svg` | HooCowork product lockup (315×80) |
 | `scripts/build_lockups.py` | Regenerates the lockups from JetBrains Mono outlines |
 | `scripts/glyphs_to_path.py` | Helper: font text run → SVG path + bounds |
+| `scripts/build_banner.py` | Generates the terminal owl mark + boot card |
+| `assets/tui/owl.ans` / `.txt` | Block-glyph owl — square blot, cyan eyes |
+| `assets/tui/startup.ans` | Boot card — owl + product info (à la `claude`) |
 
 Each mark also ships a **light / white-label** variant (dark ink on a light
 surface) under the same name with a `-light` suffix:
@@ -80,6 +83,24 @@ import HooCode from "./assets/hoocode.svg";
 - **Type Scale**: Fluid `clamp()` (display ≈32px → 56px)
 - **Radius**: Cards `20px`, panels/badges `16px`–`12px`
 
+## Terminal (TUI)
+
+A developer-native brand needs a terminal face. The owl mark is built from
+**quadrant block glyphs** (`▟▀▙▌▐▜▄▛`) — a flat square blot whose two dome eyes
+(`▟▙`) are the `oo` nodes (cyan). All single-width, so it never breaks alignment:
+
+```
+▟▀▀▀▀▀▙  hoo│code
+▌▟▙ ▟▙▐  agentic coding agent · v0.1.0
+▜▄▄▄▄▄▛  ~/github/hoocode
+```
+
+```sh
+cat assets/tui/startup.ans   # owl boot card
+cat assets/tui/owl.ans       # owl mark only
+python3 scripts/build_banner.py # regenerate
+```
+
 ## Products
 
 | Product | Suffix Style | Signal | Role |
@@ -111,6 +132,7 @@ import HooCode from "./assets/hoocode.svg";
 - [x] Responsive card grid with hover lift/border transitions
 - [x] Cyan drop-shadow glow on logo previews
 - [x] In-context usage examples (terminal, GitHub badge, favicons)
+- [x] Terminal owl mark + boot card (block-glyph, alignment-safe)
 - [x] Mobile breakpoint at `768px`
 
 ---
