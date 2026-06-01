@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hoo Brand 2026 — Design Review</title>
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --zinc-950: #09090B;
+    --zinc-900: #18181B;
+    --zinc-800: #27272A;
+    --zinc-500: #71717A;
+    --zinc-400: #A1A1AA;
+    --zinc-200: #E4E4E7;
+    --white: #FAFAFA;
+    --cyan: #00F0FF;
+    --cyan-dim: rgba(0, 240, 255, 0.15);
+    --cyan-glow: rgba(0, 240, 255, 0.4);
+    --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
+  }
+
+  [data-theme="light"] {
+    --zinc-950: #FFFFFF;
+    --zinc-900: #FAFAFA;
+    --zinc-800: #E4E4E7;
+    --zinc-500: #71717A;
+    --zinc-400: #52525B;
+    --zinc-200: #27272A;
+    --white:    #09090B;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: var(--font-sans);
+    background: var(--zinc-950);
+    color: var(--white);
+    line-height: 1.6;
+    padding-bottom: 80px;
+    transition: background 0.3s ease, color 0.3s ease;
+  }
+
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px 40px;
+    background: var(--zinc-950);
+  }
+
+  .nav-brand { display: flex; align-items: center; }
+  .nav-brand img { height: 28px; width: auto; display: block; }
+
+  .theme-toggle {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--zinc-200);
+    background: var(--zinc-900);
+    border: 1px solid var(--zinc-800);
+    border-radius: 10px;
+    padding: 8px 14px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: border-color 0.2s ease, color 0.2s ease;
+  }
+
+  .theme-toggle:hover { border-color: var(--zinc-500); color: var(--white); }
+  .theme-toggle .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--cyan); box-shadow: 0 0 8px var(--cyan-glow); }
+
+  .hero {
+    padding: 80px 40px 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .hero h1 {
+    font-size: clamp(2rem, 1.2rem + 4vw, 3.5rem);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+    margin-bottom: 16px;
+  }
+
+  .hero p {
+    font-size: clamp(1rem, 0.95rem + 0.4vw, 1.125rem);
+    color: var(--zinc-400);
+    max-width: 640px;
+  }
+
+  .section {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px;
+  }
+
+  .section-title {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--zinc-500);
+    margin-bottom: 24px;
+    font-weight: 600;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 24px;
+  }
+
+  .card {
+    background: var(--zinc-900);
+    border: 1px solid var(--zinc-800);
+    border-radius: 20px;
+    overflow: hidden;
+    transition: border-color 0.3s ease, transform 0.3s ease;
+  }
+
+  .card:hover {
+    border-color: var(--zinc-500);
+    transform: translateY(-2px);
+  }
+
+  .card-preview {
+    padding: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 220px;
+    background: 
+      radial-gradient(circle at 30% 20%, var(--cyan-dim) 0%, transparent 50%),
+      radial-gradient(circle at 70% 80%, rgba(250,250,250,0.03) 0%, transparent 40%),
+      var(--zinc-950);
+  }
+
+  .card-preview img { max-width: 100%; height: auto; }
+
+  .card-info {
+    padding: 24px 32px 32px;
+    border-top: 1px solid var(--zinc-800);
+  }
+
+  .card-info h3 {
+    font-size: clamp(1rem, 0.97rem + 0.2vw, 1.125rem);
+    font-weight: 600;
+    margin-bottom: 8px;
+    letter-spacing: -0.02em;
+  }
+
+  .card-info p {
+    font-size: 14px;
+    color: var(--zinc-400);
+    line-height: 1.5;
+  }
+
+  .tag {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 4px 10px;
+    border-radius: 6px;
+    margin-top: 16px;
+    background: var(--cyan-dim);
+    color: var(--cyan);
+    border: 1px solid rgba(0, 240, 255, 0.2);
+  }
+
+  .context-strip {
+    background: var(--zinc-900);
+    border: 1px solid var(--zinc-800);
+    border-radius: 16px;
+    padding: 40px;
+    margin-top: 24px;
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    flex-wrap: wrap;
+  }
+
+  .context-strip h4 {
+    font-size: 14px;
+    color: var(--zinc-500);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 12px;
+    font-weight: 600;
+  }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 20px;
+    background: var(--zinc-950);
+    border: 1px solid var(--zinc-800);
+    border-radius: 12px;
+    font-family: var(--font-mono);
+    font-size: 14px;
+    color: var(--zinc-200);
+  }
+
+  .badge .dot { 
+    width: 8px; 
+    height: 8px; 
+    border-radius: 50%; 
+    background: var(--cyan);
+    box-shadow: 0 0 8px var(--cyan-glow);
+  }
+
+  .favicon-grid {
+    display: flex;
+    gap: 32px;
+    align-items: flex-end;
+  }
+
+  .favicon-item {
+    text-align: center;
+  }
+
+  .favicon-item span {
+    display: block;
+    margin-top: 12px;
+    font-size: 12px;
+    color: var(--zinc-500);
+  }
+
+  .swatch-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 16px;
+  }
+  .swatch {
+    border: 1px solid var(--zinc-800);
+    border-radius: 12px;
+    overflow: hidden;
+    background: var(--zinc-900);
+  }
+  .swatch .chip { height: 80px; border-bottom: 1px solid var(--zinc-800); }
+  .swatch .meta { padding: 12px 14px; }
+  .swatch .meta strong { display: block; font-size: 13px; font-weight: 600; }
+  .swatch .meta span { display: block; font-family: var(--font-mono); font-size: 12px; color: var(--zinc-500); margin-top: 2px; }
+
+  .type-list { display: flex; flex-direction: column; }
+  .type-row {
+    display: flex;
+    align-items: baseline;
+    gap: 24px;
+    padding: 18px 0;
+    border-bottom: 1px solid var(--zinc-800);
+  }
+  .type-row .label { flex: 0 0 150px; font-family: var(--font-mono); font-size: 12px; color: var(--zinc-500); }
+  .type-row .sample { line-height: 1.15; }
+
+  @media (max-width: 768px) {
+    .type-row { flex-direction: column; gap: 6px; }
+    .type-row .label { flex: none; }
+  }
+
+  @media (max-width: 768px) {
+    .nav { padding: 16px 24px; }
+    .hero { padding: 40px 24px 24px; }
+    .section { padding: 24px; }
+    .grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+  <nav class="nav">
+    <a class="nav-brand" href="#" aria-label="Hoo home">
+      <img src="assets/wordmark.svg" alt="Hoo" data-asset="wordmark">
+    </a>
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle color theme">
+      <span class="dot"></span><span id="themeLabel">Light</span>
+    </button>
+  </nav>
+
+  <div class="hero">
+    <h1>Hoo Brand System<br><span style="color: var(--cyan);">2026 Revision</span></h1>
+    <p>Developer-native identity for an agentic AI ecosystem. Built on node geometry, signal propagation, and system-native typography.</p>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Core Assets</div>
+    <div class="grid">
+
+      <div class="card">
+        <div class="card-preview">
+          <img src="assets/icon.svg" alt="Hoo symbol" data-asset="icon" width="160" height="160" style="filter: drop-shadow(0 0 20px rgba(0,240,255,0.15));">
+        </div>
+        <div class="card-info">
+          <h3>Symbol</h3>
+          <p>Two kissing nodes for the human–AI connection, a diamond spark at the touch-point, and bilateral signal arcs broadcasting the “hoo” call. Clean at every scale.</p>
+          <span class="tag">App Icon / Avatar</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-preview">
+          <img src="assets/wordmark.svg" alt="hoo wordmark" data-asset="wordmark" width="280" height="140" style="filter: drop-shadow(0 0 20px rgba(0,240,255,0.1));">
+        </div>
+        <div class="card-info">
+          <h3>Master Wordmark</h3>
+          <p>Pure geometry: the "h" is a stem and arch, the "oo" are nodes. A single radar arc on the right replaces the old sound-wave clutter.</p>
+          <span class="tag">Primary Brand</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-preview">
+          <img src="assets/hoocode.svg" alt="HooCode" data-asset="hoocode" width="315" height="92" style="filter: drop-shadow(0 0 20px rgba(0,240,255,0.1));">
+        </div>
+        <div class="card-info">
+          <h3>HooCode</h3>
+          <p>System monospace for the suffix. The cyan underscore acts as an active terminal cursor. A divider separates the master mark from the product.</p>
+          <span class="tag">Coding Agent</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-preview">
+          <img src="assets/hoocowork.svg" alt="HooCowork" data-asset="hoocowork" width="362" height="92" style="filter: drop-shadow(0 0 20px rgba(0,240,255,0.1));">
+        </div>
+        <div class="card-info">
+          <h3>HooCowork</h3>
+          <p>Clean sans-serif for the collaboration layer. A cyan status dot at the end signals active connection or shared workspace.</p>
+          <span class="tag">Workflow Agent</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Color Palette</div>
+    <div class="swatch-grid">
+      <div class="swatch"><div class="chip" style="background:#09090B;"></div><div class="meta"><strong>Base</strong><span>#09090B</span></div></div>
+      <div class="swatch"><div class="chip" style="background:#18181B;"></div><div class="meta"><strong>Surface</strong><span>#18181B</span></div></div>
+      <div class="swatch"><div class="chip" style="background:#27272A;"></div><div class="meta"><strong>Border</strong><span>#27272A</span></div></div>
+      <div class="swatch"><div class="chip" style="background:#71717A;"></div><div class="meta"><strong>Muted</strong><span>#71717A</span></div></div>
+      <div class="swatch"><div class="chip" style="background:#A1A1AA;"></div><div class="meta"><strong>Subtle</strong><span>#A1A1AA</span></div></div>
+      <div class="swatch"><div class="chip" style="background:#E4E4E7;"></div><div class="meta"><strong>Text</strong><span>#E4E4E7</span></div></div>
+      <div class="swatch"><div class="chip" style="background:#FAFAFA;"></div><div class="meta"><strong>Primary</strong><span>#FAFAFA</span></div></div>
+      <div class="swatch"><div class="chip" style="background:#00F0FF;"></div><div class="meta"><strong>Signal Cyan</strong><span>#00F0FF</span></div></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Typography Scale</div>
+    <div class="type-list">
+      <div class="type-row"><span class="label">Display · clamp 32–56</span><span class="sample" style="font-size:clamp(2rem,1.2rem + 4vw,3.5rem);font-weight:700;letter-spacing:-0.03em;">Hoo</span></div>
+      <div class="type-row"><span class="label">Heading · 18</span><span class="sample" style="font-size:18px;font-weight:600;letter-spacing:-0.02em;">Agentic systems, by design</span></div>
+      <div class="type-row"><span class="label">Body · 16</span><span class="sample" style="font-size:16px;color:var(--zinc-400);">Developer-native identity for an agentic AI ecosystem.</span></div>
+      <div class="type-row"><span class="label">Label · 12</span><span class="sample" style="font-size:12px;text-transform:uppercase;letter-spacing:0.1em;color:var(--zinc-500);font-weight:600;">Core Assets</span></div>
+      <div class="type-row"><span class="label">Mono · 14</span><span class="sample" style="font-family:var(--font-mono);font-size:14px;color:var(--zinc-200);">hoo init --project my-agent</span></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">In-Context Application</div>
+    <div class="context-strip">
+      <div>
+        <h4>Terminal Splash</h4>
+        <div class="badge"><span class="dot"></span> hoo init --project my-agent</div>
+      </div>
+      <div>
+        <h4>GitHub Badge</h4>
+        <div class="badge" style="gap: 12px;">
+          <img src="assets/favicon.svg" alt="Hoo" data-asset="favicon" width="16" height="16">
+          <span style="color: var(--white); font-weight: 600;">kolisachint/hoocode-ai</span>
+        </div>
+      </div>
+      <div>
+        <h4>Favicon Scale</h4>
+        <div class="favicon-grid">
+          <div class="favicon-item">
+            <img src="assets/favicon.svg" alt="Hoo favicon 32px" data-asset="favicon" width="32" height="32">
+            <span>32px</span>
+          </div>
+          <div class="favicon-item">
+            <img src="assets/favicon.svg" alt="Hoo favicon 16px" data-asset="favicon" width="16" height="16">
+            <span>16px</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      var root = document.documentElement;
+      var btn = document.getElementById('themeToggle');
+      var label = document.getElementById('themeLabel');
+      function swapAssets(theme) {
+        var imgs = document.querySelectorAll('img[data-asset]');
+        for (var i = 0; i < imgs.length; i++) {
+          var base = imgs[i].getAttribute('data-asset');
+          imgs[i].src = 'assets/' + base + (theme === 'light' ? '-light' : '') + '.svg';
+        }
+      }
+      function apply(theme) {
+        root.setAttribute('data-theme', theme);
+        swapAssets(theme);
+        if (label) label.textContent = theme === 'light' ? 'Dark' : 'Light';
+        try { localStorage.setItem('hoo-theme', theme); } catch (e) {}
+      }
+      var saved = 'dark';
+      try { saved = localStorage.getItem('hoo-theme') || 'dark'; } catch (e) {}
+      apply(saved);
+      if (btn) btn.addEventListener('click', function () {
+        apply(root.getAttribute('data-theme') === 'light' ? 'dark' : 'light');
+      });
+    })();
+  </script>
+
+</body>
+</html>
