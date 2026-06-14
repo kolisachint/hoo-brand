@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Regenerate the HooCode / HooCowork lockup SVGs with real JetBrains Mono
+"""Regenerate the HooCode / HooCowork / HooTeams lockup SVGs with real JetBrains Mono
 glyph outlines (vector paths) for the suffix, a baseline-locked 'hoo' mark,
 and symmetrically padded tiles."""
 import os
@@ -39,11 +39,19 @@ import math
 code_d, code_bb, code_end = run(MED, "code", X0)
 us_d, us_bb, _ = run(BOLD, "_", code_end)
 cowork_d, cowork_bb, _ = run(REG, "cowork", X0)
+teams_d, teams_bb, _ = run(MED, "teams", X0)
 
 # status dot: just after the cowork word, centered on its x-height
 DOT_CX = round(cowork_bb[2] + 14, 1)
 DOT_CY = round(BASE - (0.55 * SIZE) / 2, 1)   # x-height center
 DOT_R = 4
+
+# relay nodes: three dots after the teams word, on the x-height center,
+# blinking in sequence (agent hand-off across a team)
+TEAM_R = 3
+TEAM_CY = round(BASE - (0.55 * SIZE) / 2, 1)
+TEAM_GAP = 12
+TEAM_CX = [round(teams_bb[2] + 14 + i * TEAM_GAP, 1) for i in range(3)]
 
 
 def mark(stroke, divider):
@@ -68,11 +76,19 @@ PING = '''  <style>
   </style>
 '''
 
+RELAY = '''  <style>
+    @keyframes hoo-relay { 0%, 70%, 100% { opacity: 0.25; } 18% { opacity: 1; } }
+    .relay { animation: hoo-relay 1.5s ease-in-out infinite; }
+    .relay-2 { animation-delay: 0.25s; }
+    .relay-3 { animation-delay: 0.5s; }
+  </style>
+'''
+
 
 def write(name, w, title, tile, stroke, divider, suffix):
     body = f'''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {w} 80" width="{w}" height="80" role="img" aria-labelledby="{name}-title">
   <title id="{name}-title">{title}</title>
-{(BLINK if 'hoocode' in name else PING if 'hoocowork' in name else '')}  <rect width="{w}" height="80" rx="16" fill="{tile}"/>
+{(BLINK if 'hoocode' in name else PING if 'hoocowork' in name else RELAY if 'hooteams' in name else '')}  <rect width="{w}" height="80" rx="16" fill="{tile}"/>
 {mark(stroke, divider)}
 {suffix}
 </svg>
@@ -99,5 +115,17 @@ cowork_suffix_light = f'  <path d="{cowork_d}" fill="#27272A"/>\n{dot}'
 write("hoocowork", WW, "HooCowork lockup", "#09090B", "#FAFAFA", "#27272A", cowork_suffix_dark)
 write("hoocowork-light", WW, "HooCowork lockup — light", "#FAFAFA", "#09090B", "#E4E4E7", cowork_suffix_light)
 
+# HooTeams tile width: last relay node + symmetric pad
+WT = math.ceil(TEAM_CX[2] + TEAM_R + PAD)
+relay = '\n'.join(
+    f'  <circle class="relay relay-{i + 1}" cx="{cx}" cy="{TEAM_CY}" r="{TEAM_R}" fill="#00F0FF"/>'
+    for i, cx in enumerate(TEAM_CX)
+)
+teams_suffix_dark = f'  <path d="{teams_d}" fill="#E4E4E7"/>\n{relay}'
+teams_suffix_light = f'  <path d="{teams_d}" fill="#27272A"/>\n{relay}'
+write("hooteams", WT, "HooTeams lockup", "#09090B", "#FAFAFA", "#27272A", teams_suffix_dark)
+write("hooteams-light", WT, "HooTeams lockup — light", "#FAFAFA", "#09090B", "#E4E4E7", teams_suffix_light)
+
 print(f"hoocode  viewBox 0 0 {WC} 80  -> html img width={round(WC*92/80)} height=92")
 print(f"hoocowork viewBox 0 0 {WW} 80  -> html img width={round(WW*92/80)} height=92")
+print(f"hooteams viewBox 0 0 {WT} 80  -> html img width={round(WT*92/80)} height=92")

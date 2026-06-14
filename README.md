@@ -110,11 +110,23 @@ Two marks. Both standalone. Combined in the wordmark.
 <sub>Workflow agent — JetBrains Mono regular · pulsing cyan presence dot `●`</sub>
 
 <br>
+<br>
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/png/hooteams.png">
+  <source media="(prefers-color-scheme: light)" srcset="assets/png/hooteams-light.png">
+  <img src="assets/png/hooteams.png" height="60" alt="HooTeams">
+</picture>
+
+<sub>Multi-agent orchestration — JetBrains Mono medium · three sequential-blink relay nodes `···`</sub>
+
+<br>
 
 | Product | Signal | Role |
 |---------|--------|------|
 | **HooCode** | Blinking cursor `_` | Coding agent |
 | **HooCowork** | Pulsing dot `●` | Workflow agent |
+| **HooTeams** | Relay nodes `···` | Multi-agent orchestration |
 
 > Suffixes are outlined to vector paths from [JetBrains Mono](https://www.jetbrains.com/lp/mono/) (OFL) — pixel-identical everywhere, zero runtime font dependency.
 
@@ -218,6 +230,8 @@ import HooCode from "./assets/hoocode.svg";
 | `assets/hoocode-light.svg` · `png` | 274×80 | HooCode lockup — light |
 | `assets/hoocowork.svg` · `png` | 315×80 | HooCowork lockup — dark |
 | `assets/hoocowork-light.svg` · `png` | 315×80 | HooCowork lockup — light |
+| `assets/hooteams.svg` · `png` | 315×80 | HooTeams lockup — dark |
+| `assets/hooteams-light.svg` · `png` | 315×80 | HooTeams lockup — light |
 
 Each SVG ships a paired PNG at 2–4× in `assets/png/`.
 
